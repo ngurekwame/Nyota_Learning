@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "694534717491",
+    "project_id": "nyota-learning",
+    "storage_bucket": "nyota-learning.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:694534717491:android:d81da034a7800d97b6e346",
+        "android_client_info": {
+          "package_name": "com.kwamapp.nyotalearning"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHZIymKcgYAOmoZFrYrMQYsuo9fJd0Dbc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
