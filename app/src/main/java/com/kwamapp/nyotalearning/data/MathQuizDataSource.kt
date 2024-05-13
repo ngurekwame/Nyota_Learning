@@ -1,8 +1,13 @@
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -11,9 +16,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.kwamapp.nyotalearning.R
 import com.kwamapp.nyotalearning.data.QuizQuestion
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -31,7 +42,7 @@ object MathQuizDataSource {
             QuizQuestion(
                 question = "Simplify the expression: (5 + 3) × 2",
                 options = listOf("16", "18", "20"),
-                correctAnswerIndex = 2
+                correctAnswerIndex = 0
             ),
             QuizQuestion(
                 question = "Calculate the square root of 144",
@@ -105,114 +116,109 @@ object MathQuizDataSource {
     // Composable function for a basic calculator
     @OptIn(ExperimentalComposeUiApi::class)
     @Composable
-    fun Calculator() {
-        var inputText by remember { mutableStateOf("") }
-        var result by remember { mutableStateOf("") }
-        val keyboardController = LocalSoftwareKeyboardController.current
+    fun Calc() {
+        var firstnum by remember { mutableStateOf(TextFieldValue("")) }
+        var secondnum by remember { mutableStateOf(TextFieldValue("")) }
+        var answer by remember { mutableStateOf("") }
+        val context= LocalContext.current
 
-        Surface(modifier = Modifier.fillMaxSize(), color = Color.LightGray) {
-            Column(
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top,
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Green)
+                .padding(16.dp)
+        )
+        {
+            Image(
+                painter = painterResource(id = R.drawable.img),
+                contentDescription = "Image",
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
+                    .height(100.dp)
+                    .width(100.dp)
+                    .padding(bottom = 16.dp)
+            )
+
+            OutlinedTextField(
+                value = firstnum,
+                label = { Text(text = "Enter First No", color = Color.White, fontSize = 30.sp) },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                onValueChange = { firstnum = it }
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            OutlinedTextField(
+                value = secondnum,
+                label = { Text(text = "Enter Second No", color = Color.White, fontSize = 30.sp) },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                onValueChange = { secondnum = it }
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Image(
+                painter = painterResource(id = R.drawable.img_1),
+                contentDescription = "Image",
+                modifier = Modifier
+                    .height(100.dp)
+                    .width(100.dp)
+                    .padding(bottom = 16.dp)
+            )
+
+
+            Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.SpaceEvenly
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxWidth()
             ) {
-                TextField(
-                    value = inputText,
-                    onValueChange = {
-                        inputText = it
-                    },
-                    keyboardOptions = KeyboardOptions.Default.copy(
-                        imeAction = ImeAction.Done
-                    ),
-                    keyboardActions = KeyboardActions(
-                        onDone = {
-                            keyboardController?.hide()
-                        }
-                    ),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color.White)
-                        .padding(16.dp)
-                )
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    CalculatorButton("7") { appendToInput("7") }
-                    CalculatorButton("8") { appendToInput("8") }
-                    CalculatorButton("9") { appendToInput("9") }
-                    CalculatorButton(" ÷ ") { appendToInput(" ÷ ") }
-                }
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    CalculatorButton("4") { appendToInput("4") }
-                    CalculatorButton("5") { appendToInput("5") }
-                    CalculatorButton("6") { appendToInput("6") }
-                    CalculatorButton(" × ") { appendToInput(" × ") }
-                }
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    CalculatorButton("1") { appendToInput("1") }
-                    CalculatorButton("2") { appendToInput("2") }
-                    CalculatorButton("3") { appendToInput("3") }
-                    CalculatorButton(" - ") { appendToInput(" - ") }
-                }
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    CalculatorButton("0") { appendToInput("0") }
-                    CalculatorButton(".") { appendToInput(".") }
-                    CalculatorButton(" = ") { calculateResult() }
-                    CalculatorButton(" + ") { appendToInput(" + ") }
-                }
-
-                Button(
-                    onClick = { inputText = ""; result = "" },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                ) {
-                    Text("Clear")
-                }
-
                 Text(
-                    text = result,
-                    modifier = Modifier.padding(vertical = 16.dp)
+                    text = "Answer: $answer",
+                    color = Color.White,
+                    fontSize = 24.sp
                 )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+
+            Row(
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                OperationButton("+", Color.Blue) {
+                    answer = performOperation(firstnum.text, secondnum.text) { a, b -> a + b }
+                }
+                OperationButton("-", Color.Blue) {
+                    answer = performOperation(firstnum.text, secondnum.text) { a, b -> a - b }
+                }
+                OperationButton("*", Color.Blue) {
+                    answer = performOperation(firstnum.text, secondnum.text) { a, b -> a * b }
+                }
+                OperationButton("/", Color.Blue) {
+                    answer = performOperation(firstnum.text, secondnum.text) { a, b -> if (b.toInt() != 0) a / b else "Infinity" }
+                }
             }
         }
     }
 
     @Composable
-    private fun CalculatorButton(label: String, onClick: () -> Unit) {
-        Button(
+    fun OperationButton(text: String, color: Color, onClick: () -> Unit) {
+        OutlinedButton(
             onClick = onClick,
-            modifier = Modifier.padding(8.dp)
+            colors = ButtonDefaults.buttonColors(color),
+            shape = RoundedCornerShape(16.dp),
+            modifier = Modifier
+                .height(48.dp)
+
         ) {
-            Text(label)
+            Text(text = text, fontSize = 24.sp)
         }
     }
 
-    private fun appendToInput(text: String) {
-        // This function is used to append text to the input field
-        // It's outside the @Composable function and operates on normal Kotlin variables
-        // Defined outside the composable function
-    }
-
-    private fun calculateResult() {
-        // This function is used to calculate the result of the input expression
-        // It's outside the @Composable function and operates on normal Kotlin variables
-        // Defined outside the composable function
-    }
-}
+    fun performOperation(first: String, second: String, operation: (Double, Double) -> Any): String {
+        val firstNum = first.toDoubleOrNull()
+        val secondNum = second.toDoubleOrNull()
+        return if (firstNum != null && secondNum != null) {
+            operation(firstNum, secondNum).toString()
+        } else {
+            "Invalid Input"
+        }
+        }}

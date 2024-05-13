@@ -6,7 +6,7 @@ object KiswahiliQuizDataSource {
         return listOf(
             QuizQuestion(
                 question = "Neno 'rafiki' ni aina gani ya nomino?",
-                options = listOf("Kiswahili sanifu", "Kiswahili cha asili", "Kiswahili fasaha"),
+                options = listOf("com.kwamapp.nyotalearning.ui.theme.screens.subjects.Kiswahili sanifu", "com.kwamapp.nyotalearning.ui.theme.screens.subjects.Kiswahili cha asili", "com.kwamapp.nyotalearning.ui.theme.screens.subjects.Kiswahili fasaha"),
                 correctAnswerIndex = 0
             ),
             QuizQuestion(
@@ -29,7 +29,7 @@ object KiswahiliQuizDataSource {
                 options = listOf("'Kizuri'", "'Nzuri'", "Vyote vinafaa"),
                 correctAnswerIndex = 1
             )
-            // Add more Kiswahili quiz questions here...
+            // Add more com.kwamapp.nyotalearning.ui.theme.screens.subjects.Kiswahili quiz questions here...
         )
     }
 }

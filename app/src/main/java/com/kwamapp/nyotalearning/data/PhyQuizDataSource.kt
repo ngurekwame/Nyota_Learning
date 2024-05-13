@@ -1,7 +1,6 @@
 package com.kwamapp.nyotalearning.data
 
 object PhyQuizDataSource {
-    // Define a function to load physics quiz questions
     fun loadQuizQuestions(): List<QuizQuestion> {
         return listOf(
             QuizQuestion(

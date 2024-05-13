@@ -3,10 +3,11 @@ package com.kwamapp.nyotalearning.navigation
 
 import Biology
 import Chemistry
+import English
 import History
-import Kiswahili
-import Mathematics
-import Physics
+import com.kwamapp.nyotalearning.ui.theme.screens.subjects.Kiswahili
+import com.kwamapp.nyotalearning.ui.theme.screens.subjects.Mathematics
+import com.kwamapp.nyotalearning.ui.theme.screens.subjects.Physics
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -19,13 +20,15 @@ import com.kwamapp.nyotalearning.ui.theme.screens.home.HomeScreen
 import com.kwamapp.nyotalearning.ui.theme.screens.login.LoginScreen
 import com.kwamapp.nyotalearning.ui.theme.screens.quizsummaries.QuizSummary
 import com.kwamapp.nyotalearning.ui.theme.screens.registration.RegisterScreen
-
-import com.kwamapp.nyotalearning.ui.theme.screens.subjects.English
+import com.kwamapp.nyotalearning.ui.theme.screens.splash.SplashScreen
 
 
 @Composable
 fun AppNavHost(modifier: Modifier =Modifier, navController: NavHostController = rememberNavController(), startDestination:String= ROUTE_LOGIN) {
     NavHost(navController = navController, modifier=modifier, startDestination = startDestination ){
+        composable(ROUTE_SPLASH) {
+            SplashScreen(navController = navController)
+            }
         composable(ROUTE_LOGIN){
             LoginScreen(navController)
         }
@@ -57,20 +60,10 @@ fun AppNavHost(modifier: Modifier =Modifier, navController: NavHostController = 
         composable(ROUTE_SWA){
             Kiswahili(navController)
         }
-        composable(
-            route = "$ROUTE_QUIZSUMMARY/{subject}",
-            arguments = listOf(navArgument("subject") { type = NavType.StringType })
-        ) { backStackEntry ->
-            val subject = backStackEntry.arguments?.getString("subject") ?: ""
-            val quizResults = when (subject) {
-                "chemistry" -> {
-                    // Retrieve quiz results for Chemistry (replace with actual data retrieval)
-                    listOf(true, false, true, true) // Example quiz results
-                }
+
                 // Add other subjects as needed
-                else -> emptyList()
+
             }
-            QuizSummary(navController = navController, quizResults = quizResults)
+
         }
-}
-    }
+

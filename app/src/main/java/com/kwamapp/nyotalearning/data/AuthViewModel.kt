@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.navigation.NavHostController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-
 import com.kwamapp.nyotalearning.navigation.ROUTE_HOME
 import com.kwamapp.nyotalearning.navigation.ROUTE_LOGIN
 import com.kwamapp.nyotalearning.navigation.ROUTE_REGISTER
@@ -48,7 +47,7 @@ class AuthViewModel(var navController: NavHostController, var context: Context){
                             navController.navigate(ROUTE_LOGIN)
 
                         }else{
-                            Toast.makeText(context,"${it.exception!!.message}", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, "Password must be at least characters", Toast.LENGTH_LONG).show()
                             navController.navigate(ROUTE_LOGIN)
                         }
                     }
@@ -69,7 +68,7 @@ class AuthViewModel(var navController: NavHostController, var context: Context){
                 navController.navigate(ROUTE_HOME)
 //                navController.navigate(ROUTE_REGISTER)TO TAKE YOU TO A DIFFERENT PAGE
             }else{
-                Toast.makeText(context,"${it.exception!!.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(context,"Incorrect username or Password", Toast.LENGTH_LONG).show()
                 navController.navigate(ROUTE_LOGIN)
             }
         }
