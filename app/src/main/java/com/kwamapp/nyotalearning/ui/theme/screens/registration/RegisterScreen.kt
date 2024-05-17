@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.kwamapp.nyotalearning.data.AuthViewModel
+import com.kwamapp.nyotalearning.model.AuthViewModel
 import com.kwamapp.nyotalearning.navigation.ROUTE_LOGIN
 
 

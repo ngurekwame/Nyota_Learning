@@ -1,24 +1,25 @@
 package com.kwamapp.nyotalearning.navigation
 
 
+import About
 import Biology
 import Chemistry
 import English
+import FeedbackScreen
 import History
-import com.kwamapp.nyotalearning.ui.theme.screens.subjects.Kiswahili
-import com.kwamapp.nyotalearning.ui.theme.screens.subjects.Mathematics
-import com.kwamapp.nyotalearning.ui.theme.screens.subjects.Physics
+import Kiswahili
+import LoginScreen
+import Mathematics
+import Physics
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
+
 import com.kwamapp.nyotalearning.ui.theme.screens.home.HomeScreen
-import com.kwamapp.nyotalearning.ui.theme.screens.login.LoginScreen
-import com.kwamapp.nyotalearning.ui.theme.screens.quizsummaries.QuizSummary
+
 import com.kwamapp.nyotalearning.ui.theme.screens.registration.RegisterScreen
 import com.kwamapp.nyotalearning.ui.theme.screens.splash.SplashScreen
 
@@ -59,6 +60,13 @@ fun AppNavHost(modifier: Modifier =Modifier, navController: NavHostController = 
         }
         composable(ROUTE_SWA){
             Kiswahili(navController)
+        }
+
+        composable(ROUTE_ABOUT){
+            About(navController)
+        }
+        composable(ROUTE_FEEDBACK){
+            FeedbackScreen(navController)
         }
 
                 // Add other subjects as needed

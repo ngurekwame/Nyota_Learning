@@ -1,4 +1,4 @@
-package com.kwamapp.nyotalearning.data
+package com.kwamapp.nyotalearning.model
 
 
 import android.app.ProgressDialog
@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.navigation.NavHostController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.kwamapp.nyotalearning.data.User
 import com.kwamapp.nyotalearning.navigation.ROUTE_HOME
 import com.kwamapp.nyotalearning.navigation.ROUTE_LOGIN
 import com.kwamapp.nyotalearning.navigation.ROUTE_REGISTER

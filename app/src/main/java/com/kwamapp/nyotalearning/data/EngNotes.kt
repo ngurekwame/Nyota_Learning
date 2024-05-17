@@ -6,7 +6,7 @@ object EngNotes {
     val sections = listOf(
         EngNoteSection(
             title = "Grammar and Syntax",
-            content = "This section covers English grammar rules and sentence structure."
+            content = "This section covers com.kwamapp.nyotalearning.ui.theme.screens.subjects.English grammar rules and sentence structure."
         ),
         EngNoteSection(
             title = "Literature",

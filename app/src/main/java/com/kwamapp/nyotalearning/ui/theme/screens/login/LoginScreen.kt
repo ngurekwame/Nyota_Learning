@@ -1,16 +1,9 @@
-package com.kwamapp.nyotalearning.ui.theme.screens.login
-
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -24,79 +17,107 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.kwamapp.nyotalearning.R
-import com.kwamapp.nyotalearning.data.AuthViewModel
+import com.kwamapp.nyotalearning.model.AuthViewModel
 import com.kwamapp.nyotalearning.navigation.ROUTE_REGISTER
 
 @Composable
 fun LoginScreen(navController: NavHostController) {
+    var email by remember { mutableStateOf("") }
+    var pass by remember { mutableStateOf("") }
+    val context = LocalContext.current
 
-    var email by remember { mutableStateOf(TextFieldValue("")) }
-    var pass by remember { mutableStateOf(TextFieldValue("")) }
-    var context= LocalContext.current
-
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(Color.Blue),
-        horizontalAlignment = Alignment.CenterHorizontally) {
-        Image(painter = painterResource
-            (id = R.drawable.logofile),
-            contentDescription = "logo")
-
-        Text(text = "Login here".uppercase(),
-            color = Color.Cyan,
-            fontFamily = FontFamily.SansSerif,
-            fontSize = 30.sp)
-        Spacer(modifier = Modifier.height(20.dp))
-
-        OutlinedTextField(value =email , onValueChange = {email=it},
-            label = { Text(text = "Enter Email") },
-            keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-
-            )
-        Spacer(modifier = Modifier.height(20.dp))
-
-        OutlinedTextField(value =pass , onValueChange = {pass=it},
-            label = { Text(text = "Enter Password") },
-            keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Gray),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.logofile),
+            contentDescription = "logo",
+            modifier = Modifier.size(120.dp)
         )
-        Spacer(modifier = Modifier.height(20.dp))
 
-        Button(onClick = {
-            val mylogin= AuthViewModel(navController, context )
-            mylogin.login(email.text.trim(),pass.text.trim())
-        }, modifier = Modifier.fillMaxWidth()) {
-            Text(text = "Log In")
+        Text(
+            text = "Login to Nyota Learning",
+            color = Color.Black,
+            style = androidx.compose.ui.text.TextStyle(fontSize = 24.sp)
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+
+        OutlinedTextField(
+            value = email,
+            onValueChange = { email = it },
+            label = { Text("Email") },
+            singleLine = true,
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = KeyboardType.Email,
+                imeAction = ImeAction.Next
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp, vertical = 8.dp)
+        )
+
+        OutlinedTextField(
+            value = pass,
+            onValueChange = { pass = it },
+            label = { Text("Password") },
+            singleLine = true,
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = KeyboardType.Password,
+                imeAction = ImeAction.Done
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp, vertical = 8.dp)
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        OutlinedButton(
+            onClick = {
+                val authViewModel = AuthViewModel(navController, context)
+                authViewModel.login(email.trim(), pass.trim())
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp)
+                .height(50.dp), // Adjust button height
+            colors = ButtonDefaults.buttonColors()
+        ) {
+            Text(text = "Log In", color = Color.Black)
         }
-        Spacer(modifier = Modifier.height(20.dp))
+
+        Spacer(modifier = Modifier.height(16.dp))
         Text(text = "Don't have an account?")
-        Spacer(modifier = Modifier.height(20.dp))
-        OutlinedButton(onClick = {
-            navController.navigate(ROUTE_REGISTER)
-        }, modifier = Modifier.fillMaxWidth()) {
-            Text(text = "Click to Register")
+        Spacer(modifier = Modifier.height(16.dp))
+        OutlinedButton(
+            onClick = { navController.navigate(ROUTE_REGISTER) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp)
+                .height(50.dp),
+            colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Blue)
+        ) {
+            Text(text = "Create Account", color = Color.Blue)
         }
-
     }
-
-
 }
+
 @Preview
 @Composable
-fun Loginpage() {
-    LoginScreen(rememberNavController())
+fun PreviewLoginScreen() {
+    LoginScreen(navController = rememberNavController())
 }

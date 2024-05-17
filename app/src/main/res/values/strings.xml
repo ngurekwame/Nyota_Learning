@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Nyota Learning</string>
+    <string name="your_name">Your Name</string>
+    <string name="your_feedback">Your Feedback</string>
+    <string name="submit_feedback">Submit Feedback</string>
+    <string name="your_email_optional">Your Email (Optional)</string>
+    <string name="select_category">Select Category</string>
 </resources>
