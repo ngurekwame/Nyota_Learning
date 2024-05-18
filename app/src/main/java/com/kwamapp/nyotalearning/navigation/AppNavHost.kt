@@ -29,7 +29,7 @@ import com.kwamapp.nyotalearning.ui.theme.screens.splash.SplashScreen
 
 
 @Composable
-fun AppNavHost(modifier: Modifier =Modifier, navController: NavHostController = rememberNavController(), startDestination:String= ROUTE_LOGIN) {
+fun AppNavHost(modifier: Modifier =Modifier, navController: NavHostController = rememberNavController(), startDestination:String= ROUTE_SPLASH) {
     NavHost(navController = navController, modifier=modifier, startDestination = startDestination ){
         composable(ROUTE_SPLASH) {
             SplashScreen(navController = navController)
