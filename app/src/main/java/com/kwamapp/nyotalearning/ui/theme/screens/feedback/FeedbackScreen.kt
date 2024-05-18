@@ -1,3 +1,5 @@
+package com.kwamapp.nyotalearning.ui.theme.screens.feedback
+
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
@@ -77,7 +79,6 @@ fun FeedbackScreen(navController: NavHostController) {
 
         Button(
             onClick = {
-
                 val name = nameState.value
                 val email = emailState.value
                 val feedback = feedbackState.value

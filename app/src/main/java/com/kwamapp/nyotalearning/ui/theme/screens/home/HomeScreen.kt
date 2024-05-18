@@ -2,48 +2,49 @@ package com.kwamapp.nyotalearning.ui.theme.screens.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.kwamapp.nyotalearning.R
 import com.kwamapp.nyotalearning.navigation.ROUTE_ABOUT
 import com.kwamapp.nyotalearning.navigation.ROUTE_BIO
 import com.kwamapp.nyotalearning.navigation.ROUTE_CHEM
+import com.kwamapp.nyotalearning.navigation.ROUTE_DOWNLOAD
 import com.kwamapp.nyotalearning.navigation.ROUTE_ENG
 import com.kwamapp.nyotalearning.navigation.ROUTE_FEEDBACK
 import com.kwamapp.nyotalearning.navigation.ROUTE_HIST
 import com.kwamapp.nyotalearning.navigation.ROUTE_MATH
 import com.kwamapp.nyotalearning.navigation.ROUTE_PHY
 import com.kwamapp.nyotalearning.navigation.ROUTE_SWA
+import com.kwamapp.nyotalearning.navigation.ROUTE_UPLOAD
 import com.kwamapp.nyotalearning.ui.theme.AppColor
 
 @Composable
 fun HomeScreen(navController: NavHostController) {
-    var expanded by remember { mutableStateOf(false) }
-    var selectedSubject by remember { mutableStateOf<String?>(null) }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -71,77 +72,139 @@ fun HomeScreen(navController: NavHostController) {
             modifier = Modifier.padding(bottom = 32.dp)
         )
 
-        SubjectDropdown(
-            expanded = expanded,
-            selectedSubject = selectedSubject,
-            onExpandedChange = { expanded = !expanded },
-            onSubjectSelected = { subject ->
-                selectedSubject = subject
-                expanded = false
-                navigateToSubject(navController, subject)
-            }
-        )
+        SubjectCard("Kiswahili", navController, ROUTE_SWA)
+        SubjectCard("English", navController, ROUTE_ENG)
+        SubjectCard("Mathematics", navController, ROUTE_MATH)
+        SubjectCard("Biology", navController, ROUTE_BIO)
+        SubjectCard("Chemistry", navController, ROUTE_CHEM)
+        SubjectCard("Physics", navController, ROUTE_PHY)
+        SubjectCard("History and Government", navController, ROUTE_HIST)
+        
+        AboutCard(navController)
+        FeedbackCard(navController)
+        UploadCard(navController)
+        DownloadCard(navController)
     }
 }
 
 @Composable
-fun SubjectDropdown(
-    expanded: Boolean,
-    selectedSubject: String?,
-    onExpandedChange: () -> Unit,
-    onSubjectSelected: (String) -> Unit
-) {
-    val subjectOptions = listOf(
-        "Kiswahili",
-        "English",
-        "Mathematics",
-        "Biology",
-        "Chemistry",
-        "Physics",
-        "History and Government",
-        "About",
-        "Feedback"
-    )
-
-    Box(
-        modifier = Modifier.fillMaxWidth(),
-        contentAlignment = Alignment.Center
+fun SubjectCard(subject: String, navController: NavHostController, route: String) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .clickable { navController.navigate(route) },
+        colors = CardDefaults.cardColors(containerColor = AppColor.Gold)
     ) {
-        OutlinedButton(
-            onClick = onExpandedChange,
-            modifier = Modifier.padding(vertical = 20.dp)
+        Box(
+            modifier = Modifier
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
         ) {
-            Text(text = selectedSubject ?: "Select Subject", color = Color.Blue)
-        }
-
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = onExpandedChange,
-            modifier = Modifier.background(Color.White)
-        ) {
-            subjectOptions.forEach { subject ->
-                DropdownMenuItem(
-                    text = { Text(text = subject, color = AppColor.DarkBlue) },
-                    onClick = {
-                        onSubjectSelected(subject)
-                    }
-                )
-            }
+            Text(text = subject, color = AppColor.DarkBlue)
         }
     }
 }
 
-private fun navigateToSubject(navController: NavHostController, subject: String) {
-    when (subject) {
-        "Kiswahili" -> navController.navigate(ROUTE_SWA)
-        "English" -> navController.navigate(ROUTE_ENG)
-        "Mathematics" -> navController.navigate(ROUTE_MATH)
-        "Biology" -> navController.navigate(ROUTE_BIO)
-        "Chemistry" -> navController.navigate(ROUTE_CHEM)
-        "Physics" -> navController.navigate(ROUTE_PHY)
-        "History and Government" -> navController.navigate(ROUTE_HIST)
-        "About" -> navController.navigate(ROUTE_ABOUT)
-        "Feedback" -> navController.navigate(ROUTE_FEEDBACK)
+@Composable
+fun AboutCard(navController: NavHostController) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .clickable { navController.navigate(ROUTE_ABOUT) },
+        colors = CardDefaults.cardColors(containerColor = Color.LightGray)
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_about),
+                contentDescription = "About Icon",
+                tint = AppColor.DarkBlue,
+                modifier = Modifier.size(24.dp)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(text = "About", color = AppColor.DarkBlue, fontSize = 18.sp)
+        }
+    }
+}
+
+@Composable
+fun FeedbackCard(navController: NavHostController) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .clickable { navController.navigate(ROUTE_FEEDBACK) },
+        colors = CardDefaults.cardColors(containerColor = Color.LightGray)
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_feedback),
+                contentDescription = "Feedback Icon",
+                tint = AppColor.DarkBlue,
+                modifier = Modifier.size(24.dp)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(text = "Feedback", color = AppColor.DarkBlue, fontSize = 18.sp)
+        }
+    }
+}
+@Composable
+fun DownloadCard(navController: NavHostController) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .clickable { navController.navigate(ROUTE_DOWNLOAD) },
+        colors = CardDefaults.cardColors(containerColor = Color.LightGray)
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_download),
+                contentDescription = "Download Icon",
+                tint = AppColor.DarkBlue,
+                modifier = Modifier.size(24.dp)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(text = "Download", color = AppColor.DarkBlue, fontSize = 18.sp)
+        }
+    }
+}
+@Composable
+fun UploadCard(navController: NavHostController) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .clickable { navController.navigate(ROUTE_UPLOAD) },
+        colors = CardDefaults.cardColors(containerColor = Color.LightGray)
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_upload),
+                contentDescription = "Feedback Icon",
+                tint = AppColor.DarkBlue,
+                modifier = Modifier.size(24.dp)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(text = "Upload", color = AppColor.DarkBlue, fontSize = 18.sp)
+        }
     }
 }
 
