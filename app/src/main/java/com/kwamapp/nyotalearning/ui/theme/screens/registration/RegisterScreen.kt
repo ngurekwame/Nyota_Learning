@@ -30,6 +30,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.kwamapp.nyotalearning.model.AuthViewModel
 import com.kwamapp.nyotalearning.navigation.ROUTE_LOGIN
+import com.kwamapp.nyotalearning.ui.theme.AppColor
 
 
 @Composable
@@ -44,14 +45,14 @@ fun RegisterScreen(navController:NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally) {
 
         Text(text = "Register here",
-            color = Color.Cyan,
+            color = Color.Black,
             fontFamily = FontFamily.Cursive,
             fontSize = 30.sp)
         Spacer(modifier = Modifier.height(20.dp))
 
         OutlinedTextField(
             value = email, onValueChange = { email = it },
-            label = { Text(text = "Enter Email") },
+            label = { Text(text = "Enter Email", color = Color.Black) },
 
             keyboardOptions = KeyboardOptions . Default . copy (imeAction = ImeAction.Next),
             modifier = Modifier
@@ -62,7 +63,7 @@ fun RegisterScreen(navController:NavHostController) {
         Spacer(modifier = Modifier.height(20.dp))
 
         OutlinedTextField(value =pass , onValueChange = {pass=it},
-            label = { Text(text = "Enter password") },
+            label = { Text(text = "Enter password", color = Color.Black) },
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
             modifier = Modifier
                 .fillMaxWidth()
@@ -73,7 +74,7 @@ fun RegisterScreen(navController:NavHostController) {
         Text(text = "Password must be at least 6 characters")
         OutlinedTextField(value =confirmpass , onValueChange = {
             confirmpass=it},
-            label = { Text(text = "Please Confirm Password") },
+            label = { Text(text = "Please Confirm Password", color = Color.Black) },
 
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
             modifier = Modifier

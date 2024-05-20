@@ -151,7 +151,7 @@ fun AboutCard(navController: NavHostController) {
                 modifier = Modifier.size(24.dp)
             )
             Spacer(modifier = Modifier.width(8.dp))
-            Text(text = "About", color = AppColor.DarkBlue, fontSize = 18.sp)
+            Text(text = "About us", color = AppColor.DarkBlue, fontSize = 18.sp)
         }
     }
 }
@@ -177,7 +177,7 @@ fun FeedbackCard(navController: NavHostController) {
                 modifier = Modifier.size(24.dp)
             )
             Spacer(modifier = Modifier.width(8.dp))
-            Text(text = "Feedback", color = AppColor.DarkBlue, fontSize = 18.sp)
+            Text(text = "Give Feedback", color = AppColor.DarkBlue, fontSize = 18.sp)
         }
     }
 }
@@ -203,7 +203,7 @@ fun DownloadCard(navController: NavHostController) {
                 modifier = Modifier.size(24.dp)
             )
             Spacer(modifier = Modifier.width(8.dp))
-            Text(text = "Download", color = AppColor.DarkBlue, fontSize = 18.sp)
+            Text(text = "Download a file", color = AppColor.DarkBlue, fontSize = 18.sp)
         }
     }
 }
@@ -229,7 +229,7 @@ fun UploadCard(navController: NavHostController) {
                 modifier = Modifier.size(24.dp)
             )
             Spacer(modifier = Modifier.width(8.dp))
-            Text(text = "Upload", color = AppColor.DarkBlue, fontSize = 18.sp)
+            Text(text = "Upload a file", color = AppColor.DarkBlue, fontSize = 18.sp)
         }
     }
 }
