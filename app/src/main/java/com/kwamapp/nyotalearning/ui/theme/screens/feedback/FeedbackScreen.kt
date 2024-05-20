@@ -1,6 +1,7 @@
 package com.kwamapp.nyotalearning.ui.theme.screens.feedback
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
@@ -70,7 +71,6 @@ fun FeedbackScreen(navController: NavHostController) {
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
             keyboardActions = KeyboardActions(onDone = {
-                // Dismiss the keyboard when done is clicked
                 keyboardController?.hide()
             })
         )
@@ -79,16 +79,28 @@ fun FeedbackScreen(navController: NavHostController) {
 
         Button(
             onClick = {
+                Log.d("FeedbackScreen", "Submit button clicked")
                 val name = nameState.value
                 val email = emailState.value
                 val feedback = feedbackState.value
+
+                if (name.isBlank() || email.isBlank() || feedback.isBlank()) {
+                    showToast(context, "Please fill in all fields")
+                    return@Button
+                }
+
                 val feedbackData = Feedback(name, email, feedback)
 
-                // Add feedback data to Firestore
                 coroutineScope.launch {
-                    addFeedbackToFirestore(feedbackData)
-                    showToast(context, "Feedback submitted successfully!")
-                    navController.navigate(ROUTE_HOME)
+                    try {
+                        Log.d("FeedbackScreen", "Submitting feedback to Firestore")
+                        addFeedbackToFirestore(feedbackData)
+                        showToast(context, "Feedback submitted successfully!")
+                        navController.navigate(ROUTE_HOME)
+                    } catch (e: Exception) {
+                        Log.e("FeedbackScreen", "Error submitting feedback", e)
+                        showToast(context, "Failed to submit feedback: ${e.message}")
+                    }
                 }
             },
             modifier = Modifier.fillMaxWidth()
