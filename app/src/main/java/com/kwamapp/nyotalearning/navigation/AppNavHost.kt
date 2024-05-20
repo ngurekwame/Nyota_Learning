@@ -11,7 +11,6 @@ import Kiswahili
 import LoginScreen
 import Mathematics
 import Physics
-import UploadFileScreen
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -21,6 +20,7 @@ import androidx.navigation.compose.rememberNavController
 import com.kwamapp.nyotalearning.ui.theme.screens.feedback.FeedbackScreen
 import com.kwamapp.nyotalearning.ui.theme.screens.about.About
 import com.kwamapp.nyotalearning.ui.theme.screens.files.DownloadFileScreen
+import com.kwamapp.nyotalearning.ui.theme.screens.files.UploadFileScreen
 
 import com.kwamapp.nyotalearning.ui.theme.screens.home.HomeScreen
 
