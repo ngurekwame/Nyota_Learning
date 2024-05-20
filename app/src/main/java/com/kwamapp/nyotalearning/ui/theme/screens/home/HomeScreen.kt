@@ -1,5 +1,6 @@
 package com.kwamapp.nyotalearning.ui.theme.screens.home
 
+import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,11 +19,13 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,45 +48,66 @@ import com.kwamapp.nyotalearning.ui.theme.AppColor
 
 @Composable
 fun HomeScreen(navController: NavHostController) {
+    val context = LocalContext.current
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(color = Color.Gray)
             .verticalScroll(rememberScrollState())
             .padding(16.dp),
-        verticalArrangement = Arrangement.Top,
+        verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.logofile),
-            contentDescription = "logo",
-            modifier = Modifier.padding(vertical = 30.dp)
-        )
+        Column(
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.logofile),
+                contentDescription = "logo",
+                modifier = Modifier.padding(vertical = 30.dp)
+            )
 
-        Text(
-            text = "Welcome to the Nyota Learning App!".uppercase(),
-            color = AppColor.DarkBlue,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
+            Text(
+                text = "Welcome to the Nyota Learning App!".uppercase(),
+                color = AppColor.DarkBlue,
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
 
-        Text(
-            text = "Please choose your preferred subject of study",
-            color = AppColor.DarkBlue,
-            modifier = Modifier.padding(bottom = 32.dp)
-        )
+            Text(
+                text = "Please choose your preferred subject of study",
+                color = AppColor.DarkBlue,
+                modifier = Modifier.padding(bottom = 32.dp)
+            )
 
-        SubjectCard("Kiswahili", navController, ROUTE_SWA)
-        SubjectCard("English", navController, ROUTE_ENG)
-        SubjectCard("Mathematics", navController, ROUTE_MATH)
-        SubjectCard("Biology", navController, ROUTE_BIO)
-        SubjectCard("Chemistry", navController, ROUTE_CHEM)
-        SubjectCard("Physics", navController, ROUTE_PHY)
-        SubjectCard("History and Government", navController, ROUTE_HIST)
-        
-        AboutCard(navController)
-        FeedbackCard(navController)
-        UploadCard(navController)
-        DownloadCard(navController)
+            SubjectCard("Kiswahili", navController, ROUTE_SWA)
+            SubjectCard("English", navController, ROUTE_ENG)
+            SubjectCard("Mathematics", navController, ROUTE_MATH)
+            SubjectCard("Biology", navController, ROUTE_BIO)
+            SubjectCard("Chemistry", navController, ROUTE_CHEM)
+            SubjectCard("Physics", navController, ROUTE_PHY)
+            SubjectCard("History and Government", navController, ROUTE_HIST)
+
+            AboutCard(navController)
+            FeedbackCard(navController)
+            UploadCard(navController)
+            DownloadCard(navController)
+        }
+
+        // Exit app button
+        IconButton(
+            onClick = { (context as? Activity)?.finish() },
+            modifier = Modifier.padding(vertical = 16.dp)
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_exit),
+                contentDescription = "Exit Icon",
+                tint = AppColor.DarkBlue,
+                modifier = Modifier.size(32.dp)
+            )
+        }
     }
 }
 
@@ -157,6 +181,7 @@ fun FeedbackCard(navController: NavHostController) {
         }
     }
 }
+
 @Composable
 fun DownloadCard(navController: NavHostController) {
     Card(
@@ -182,6 +207,7 @@ fun DownloadCard(navController: NavHostController) {
         }
     }
 }
+
 @Composable
 fun UploadCard(navController: NavHostController) {
     Card(
@@ -198,7 +224,7 @@ fun UploadCard(navController: NavHostController) {
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_upload),
-                contentDescription = "Feedback Icon",
+                contentDescription = "Upload Icon",
                 tint = AppColor.DarkBlue,
                 modifier = Modifier.size(24.dp)
             )
